@@ -1,6 +1,5 @@
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+<div class="main container-fluid vh-100">
+  <div class="overlay">
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+  </div>
 </div>
-<router-outlet (activate)="onActivate($event)"></router-outlet>

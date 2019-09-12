@@ -1,1 +1,16 @@
-<p>search works!</p>
+<div class="row h-75 justify-content-center align-items-center">
+  <div class="input-group input-group-lg col-md-8">
+    <div class="input-group-prepend">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-lg rounded-0 language-button" id="dropdownBasic1" ngbDropdownToggle>Language</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem>Action - 1</button>
+          <button ngbDropdownItem>Another Action</button>
+          <button ngbDropdownItem>Something else is here</button>
+        </div>
+      </div>
+    </div>
+    <input type="text" class="form-control search-input" placeholder="Enter a word..." aria-label="Text input to search for the word translation">
+    <button class="btn btn-primary btn-lg rounded-0 search-button">Search</button>
+  </div>
+</div>
