@@ -1,16 +1,30 @@
-<div class="row h-75 justify-content-center align-items-center">
-  <div class="input-group input-group-lg col-md-8">
+<div class="row justify-content-center">
+  <div class="search-container input-group input-group-lg col-md-8">
     <div class="input-group-prepend">
       <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-lg rounded-0 language-button" id="dropdownBasic1" ngbDropdownToggle>Language</button>
+        <button class="btn btn-lg rounded-0 language-button" id="dropdownBasic1" ngbDropdownToggle>Language: {{ selectedLanguage }}</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem>Action - 1</button>
-          <button ngbDropdownItem>Another Action</button>
-          <button ngbDropdownItem>Something else is here</button>
+          <button ngbDropdownItem *ngFor="let lang of availableLanguages | async" (click)="selectedLanguage=lang">{{ lang }}</button>
         </div>
       </div>
     </div>
-    <input type="text" class="form-control search-input" placeholder="Enter a word..." aria-label="Text input to search for the word translation">
-    <button class="btn btn-primary btn-lg rounded-0 search-button">Search</button>
+    <input type="text" class="form-control search-input" placeholder="Enter a word..." #search (keyup.enter)="doSearch(selectedLanguage, search.value)" aria-label="Text input to search for the word translation">
+    <button class="btn btn-primary btn-lg rounded-0 search-button" (click)="doSearch(selectedLanguage, search.value)">Search</button>
+  </div>
+  <div class="similar-words-container col-md-8" *ngIf="similarWords">
+    <table class="table table-hover table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Similar Words</th>
+          <th scope="col">Strength</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let similarWord of similarWords | async">
+          <th scope="row">{{ similarWord.word }}</th>
+          <td>{{ similarWord.strength }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
