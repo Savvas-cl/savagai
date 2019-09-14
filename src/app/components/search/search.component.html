@@ -19,13 +19,13 @@
           <th scope="col">Strength</th>
         </tr>
         <tr *ngIf="!similarWords.length">
-          <th scope="col">Zero results found</th>
+          <th scope="col">No results found!</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let similarWord of similarWords">
-          <th scope="row">{{ similarWord.word }}</th>
-          <td>{{ similarWord.strength }}</td>
+        <tr *ngFor="let similarWord of similarWords" (click)="openWordInfoModal(content, selectedLanguage, similarWord.word)">
+          <td scope="row">{{ similarWord.word }}</td>
+          <td><ngb-progressbar [showValue]="true" type="info" [value]="similarWord.strength * 100 | number : '1.2-2'"></ngb-progressbar></td>
         </tr>
       </tbody>
     </table>
@@ -36,3 +36,73 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeWordInfoModal(modal)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="wordInfo">
+    <dl>
+      <dt>
+        Word
+      </dt>
+      <dd>
+        {{ wordInfo.word }}
+      </dd>
+    </dl>
+    <dl>
+      <dt>
+        Frequency
+      </dt>
+      <dd>
+        {{ wordInfo.frequency }}
+      </dd>
+    </dl>
+    <dl>
+      <dt>
+        Document Frequency
+      </dt>
+      <dd>
+        {{ wordInfo.documentFrequency }}
+      </dd>
+    </dl>
+    <dl>
+      <dt>
+        Absolute Rank
+      </dt>
+      <dd>
+        {{ wordInfo.absoluteRank }}
+      </dd>
+    </dl>
+    <dl>
+      <dt>
+        Relative Rank
+      </dt>
+      <dd>
+        {{ wordInfo.relativeRank }}
+      </dd>
+    </dl>
+    <dl>
+      <dt>
+        Vocabulary Size
+      </dt>
+      <dd>
+        {{ wordInfo.vocabularySize }}
+      </dd>
+    </dl>
+  </div>
+  <div class="modal-body" *ngIf="modalError">
+    <p>{{ modalError }}</p>
+  </div>
+  <div class="modal-body row justify-content-center" *ngIf="!wordInfo && !modalError">
+    <div class="mt-2 spinner-grow text-light" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="closeWordInfoModal(modal)">Close</button>
+  </div>
+</ng-template>

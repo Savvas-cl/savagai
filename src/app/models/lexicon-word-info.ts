@@ -11,6 +11,5 @@ export class LexiconWordInfo {
               public documentFrequency: number,
               public absoluteRank: number,
               public relativeRank: number,
-              public vocabularySize: number,
-              public semanticallySimilarWords: SimilarWord[]) {}
+              public vocabularySize: number) {}
 }

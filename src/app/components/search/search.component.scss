@@ -11,7 +11,13 @@
 
   .dropdown-menu {
     border-radius: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    height: 200px;
+    background-color: #000;
+    overflow: hidden;
+
+    &:hover {
+      overflow-y: scroll;
+    } 
 
     .dropdown-item {
     	color: #fff;
@@ -60,6 +66,21 @@
       &:hover {
         overflow-y: scroll;
       }
+
+      tr {
+        cursor: pointer;
+      }
     }
+  }
+}
+.dark-modal {
+
+  .modal-content {
+    background-color: #292b2c;
+    color: white;
+  }
+
+  .close {
+    color: white;
   }
 }
