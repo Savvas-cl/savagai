@@ -9,7 +9,7 @@
       </div>
     </div>
     <input type="text" class="form-control search-input" placeholder="Enter a word..." #search (keyup.enter)="doSearch(selectedLanguage, search.value)" aria-label="Text input to search for the word translation">
-    <button class="btn btn-primary btn-lg rounded-0 search-button" (click)="doSearch(selectedLanguage, search.value)">Search</button>
+    <button class="btn btn-lg rounded-0 search-button" (click)="doSearch(selectedLanguage, search.value)">Search</button>
   </div>
   <div class="similar-words-container col-md-8" *ngIf="!loading">
     <table *ngIf="similarWords !== undefined" class="table table-hover table-dark table-fixed">
@@ -39,7 +39,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
+    <h4 class="modal-title">Word Information</h4>
     <button type="button" class="close" aria-label="Close" (click)="closeWordInfoModal(modal)">
       <span aria-hidden="true">&times;</span>
     </button>
