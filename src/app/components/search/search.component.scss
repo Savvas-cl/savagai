@@ -42,14 +42,24 @@
 
 .similar-words-container {
   margin-top: 30px;
-  height: 450px;
-  overflow: hidden;
-
-  &:hover {
-    overflow-y: scroll;
-  }
 
   .table-dark {
     background-color: rgba(0, 0, 0, 0.5);
+
+    thead, tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    tbody {
+      max-height: 400px;
+      overflow-y: hidden;
+      display: block;
+
+      &:hover {
+        overflow-y: scroll;
+      }
+    }
   }
 }

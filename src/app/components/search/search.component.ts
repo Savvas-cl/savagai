@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SavagaiLexiconService } from '../../services/savagai-lexicon.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { LexiconWordInfo } from '../../models/lexicon-word-info';
+import { SimilarWord } from '../../models/lexicon-word-info';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   public availableLanguages: Observable<string[]>;
   public selectedLanguage = 'EN';
-  public similarWords: Observable<LexiconWordInfo>;
+  public similarWords: SimilarWord[];
+  public similarWordsSub: Subscription;
+  public loading = false;
 
   constructor(private savagaiApi: SavagaiLexiconService) {
 
@@ -23,6 +25,20 @@ export class SearchComponent implements OnInit {
   }
 
   doSearch(language: string, wordToSearch: string) {
-    this.similarWords = this.savagaiApi.getLexiconWordInfo(language, wordToSearch);
+    this.loading = true;
+    this.similarWordsSub = this.savagaiApi.getLexiconWordInfo(language, wordToSearch.replace(/\s/g, ''))
+      .subscribe(
+        resultWords => {
+          this.similarWords = resultWords;
+          this.loading = false;
+        },
+        error => {
+          console.error(error);
+        }
+      );
+  }
+
+  ngOnDestroy() {
+
   }
 }

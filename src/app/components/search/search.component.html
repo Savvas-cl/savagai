@@ -11,20 +11,28 @@
     <input type="text" class="form-control search-input" placeholder="Enter a word..." #search (keyup.enter)="doSearch(selectedLanguage, search.value)" aria-label="Text input to search for the word translation">
     <button class="btn btn-primary btn-lg rounded-0 search-button" (click)="doSearch(selectedLanguage, search.value)">Search</button>
   </div>
-  <div class="similar-words-container col-md-8" *ngIf="similarWords">
-    <table class="table table-hover table-dark">
+  <div class="similar-words-container col-md-8" *ngIf="!loading">
+    <table *ngIf="similarWords !== undefined" class="table table-hover table-dark table-fixed">
       <thead>
-        <tr>
+        <tr *ngIf="similarWords.length">
           <th scope="col">Similar Words</th>
           <th scope="col">Strength</th>
         </tr>
+        <tr *ngIf="!similarWords.length">
+          <th scope="col">Zero results found</th>
+        </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let similarWord of similarWords | async">
+        <tr *ngFor="let similarWord of similarWords">
           <th scope="row">{{ similarWord.word }}</th>
           <td>{{ similarWord.strength }}</td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+<div class="row justify-content-center" *ngIf="loading">
+  <div class="col-md-8 mt-5 spinner-grow text-light" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
 </div>

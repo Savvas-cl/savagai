@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, empty, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SimilarWord } from '../models/lexicon-word-info';
 
@@ -23,7 +23,7 @@ export class SavagaiLexiconService {
     return this.http.get<any>(requestUrl);
   }
 
-  getLexiconWordInfo(language: string, word: string): Observable<SimilarWord> {
+  getLexiconWordInfo(language: string, word: string): Observable<SimilarWord[]> {
     const requestUrl = `${this.baseApiUrl}/lexicon/${language}/${word}?apiKey=${this.apiKey}&additionalFields=SEMANTICALLY_SIMILAR_WORDS`;
 
     console.log(requestUrl);
@@ -46,7 +46,6 @@ export class SavagaiLexiconService {
     return this.http.get<any>(requestUrl)
     .pipe(
       map(results => {
-        console.log(results);
         return results.semanticallySimilarWords.map(simWord => {
           return new SimilarWord(
             simWord.word,
