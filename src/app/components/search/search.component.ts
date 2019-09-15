@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   doSearch(language: string, wordToSearch: string) {
-    this.searchTerm = wordToSearch.replace(/\s/g, '');
+    this.searchTerm = wordToSearch;
     this.searchInput.nativeElement.value = '';
 
     if (wordToSearch) {

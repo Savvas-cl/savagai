@@ -8,18 +8,21 @@
         </div>
       </div>
     </div>
-    <input type="text" class="form-control search-input" placeholder="Enter a word..." #search (keyup.enter)="doSearch(selectedLanguage, search.value)" aria-label="Text input to search for the word translation">
+    <input type="text" class="form-control search-input" placeholder="Enter a word..." #search (keyup.enter)="doSearch(selectedLanguage, search.value)" placement="top" ngbTooltip="Please enter a single word without spaces for better results." aria-label="Text input to search for the word translation">
     <button class="btn btn-lg rounded-0 search-button" (click)="doSearch(selectedLanguage, search.value)">Search</button>
   </div>
   <div class="similar-words-container col-md-8" *ngIf="!loading">
+    <p class="search-term" *ngIf="searchTerm" (click)="openWordInfoModal(content, selectedLanguage, searchTerm)">
+      Search Term: <span class="text-secondary">{{ searchTerm }}</span>
+    </p>
     <table *ngIf="similarWords !== undefined" class="table table-hover table-dark table-fixed">
       <thead>
         <tr *ngIf="similarWords.length">
-          <th scope="col" class="search-term-heading" (click)="openWordInfoModal(content, selectedLanguage, searchTerm)">Similar Words for: <span class="text-secondary">{{ searchTerm }}</span></th>
+          <th scope="col">Similar Words</th>
           <th scope="col">Strength</th>
         </tr>
         <tr *ngIf="!similarWords.length">
-          <th scope="col">Search term: <span class="text-secondary">{{ searchTerm }}</span> has no results.</th>
+          <th scope="col">There are no results!</th>
         </tr>
       </thead>
       <tbody>

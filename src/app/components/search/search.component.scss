@@ -61,16 +61,24 @@
 .similar-words-container {
   margin-top: 30px;
 
+  .search-term {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255,255,255,.075);
+    }
+
+    span {
+      font-weight: 600;
+    }
+  }
+
   .table-dark {
     background-color: rgba(0, 0, 0, 0.5);
-
-    .search-term-heading {
-      cursor: pointer;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
 
     thead, tbody tr {
       display: table;
@@ -79,7 +87,7 @@
     }
 
     tbody {
-      max-height: 400px;
+      max-height: 350px;
       overflow-y: hidden;
       display: block;
 
