@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable, empty, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SimilarWord, LexiconWordInfo } from '../models/lexicon-word-info';
+import { SimilarWord, LexiconWordInfo } from '../models/lexicon-models';
 
 import { environment } from './../../environments/environment';
 

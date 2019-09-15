@@ -3,7 +3,7 @@ import { SavagaiLexiconService } from '../../services/savagai-lexicon.service';
 import { Observable, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { LexiconWordInfo, SimilarWord } from '../../models/lexicon-word-info';
+import { LexiconWordInfo, SimilarWord } from '../../models/lexicon-models';
 
 @Component({
   selector: 'app-search',
