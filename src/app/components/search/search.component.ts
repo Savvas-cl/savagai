@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { SavagaiLexiconService } from '../../services/savagai-lexicon.service';
 import { Observable, Subscription } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { LexiconWordInfo, SimilarWord } from '../../models/lexicon-models';
 
@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  openWordInfoModal(content, language, word) {
+  openWordInfoModal(content: any, language: string, word: string) {
     this.wordInfoSub = this.savagaiApi.getLexiconWordInfo(language, word)
       .subscribe(
         infoOfWord => {
@@ -64,12 +64,18 @@ export class SearchComponent implements OnInit, OnDestroy {
           console.error(error);
         }
       );
-    this.modalService.open(content, { windowClass: 'dark-modal' });
+
+    const openModal: NgbModalRef = this.modalService.open(content, { windowClass: 'dark-modal' });
+    openModal.result.then(() => {
+      this.modalError = undefined;
+      this.wordInfo = undefined;
+    }, () => {
+      this.modalError = undefined;
+      this.wordInfo = undefined;
+    });
   }
 
-  closeWordInfoModal(modalRef) {
-    this.modalError = undefined;
-    this.wordInfo = undefined;
+  closeWordInfoModal(modalRef: NgbModalRef) {
     modalRef.close();
     this.wordInfoSub.unsubscribe();
   }
