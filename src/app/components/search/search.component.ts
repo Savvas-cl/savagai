@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { SavagaiLexiconService } from '../../services/savagai-lexicon.service';
 import { Observable, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,8 +12,11 @@ import { LexiconWordInfo, SimilarWord } from '../../models/lexicon-word-info';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
+  @ViewChild('search', { static: false }) searchInput: ElementRef;
+
   public availableLanguages: Observable<string[]>;
   public selectedLanguage = 'EN';
+  public searchTerm: string;
   public similarWords: SimilarWord[];
   public similarWordsSub: Subscription;
   public wordInfo: LexiconWordInfo;
@@ -30,9 +33,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   doSearch(language: string, wordToSearch: string) {
+    this.searchTerm = wordToSearch.replace(/\s/g, '');
+    this.searchInput.nativeElement.value = '';
+
     if (wordToSearch) {
       this.loading = true;
-      this.similarWordsSub = this.savagaiApi.getSimilarLexiconWords(language, wordToSearch.replace(/\s/g, ''))
+      this.similarWordsSub = this.savagaiApi.getSimilarLexiconWords(language, this.searchTerm)
         .subscribe(
           resultWords => {
             this.similarWords = resultWords;

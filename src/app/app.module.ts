@@ -6,13 +6,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { SearchComponent } from './components/search/search.component';
-import { SearchDetailsComponent } from './components/search-details/search-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent,
-    SearchDetailsComponent
+    SearchComponent
   ],
   imports: [
     NgbModule,

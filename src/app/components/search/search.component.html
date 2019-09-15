@@ -15,11 +15,11 @@
     <table *ngIf="similarWords !== undefined" class="table table-hover table-dark table-fixed">
       <thead>
         <tr *ngIf="similarWords.length">
-          <th scope="col">Similar Words</th>
+          <th scope="col" class="search-term-heading" (click)="openWordInfoModal(content, selectedLanguage, searchTerm)">Similar Words for: <span class="text-secondary">{{ searchTerm }}</span></th>
           <th scope="col">Strength</th>
         </tr>
         <tr *ngIf="!similarWords.length">
-          <th scope="col">No results found!</th>
+          <th scope="col">Search term: <span class="text-secondary">{{ searchTerm }}</span> has no results.</th>
         </tr>
       </thead>
       <tbody>

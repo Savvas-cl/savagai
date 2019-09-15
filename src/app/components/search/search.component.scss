@@ -64,6 +64,14 @@
   .table-dark {
     background-color: rgba(0, 0, 0, 0.5);
 
+    .search-term-heading {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     thead, tbody tr {
       display: table;
       width: 100%;
